@@ -1,0 +1,75 @@
+import random
+import time
+
+friend_score = 0
+score = 0
+
+name = input("Enter your name: ")
+friend = input("Enter your friend's name: ")
+
+def display_intro():
+    print("You and your friend are playing football...")
+    print("\nYou are having a penalty shootout")
+    time.sleep(1)
+
+def penalty_shot(taker_name, opponent_name, taker_score):
+    shot = int(input("Enter where you want to shoot: "))
+    # 1 is topleft
+    # 2 is topcentre
+    # 3 is topright
+    # 4 is bottomleft
+    # 5 is bottomcentre
+    # 6 is bottomright
+    dive = random.randint(1, 6)
+    
+    # Determine strike quality
+    if shot in (1, 3) and dive != 1 and dive != 3:
+        print("TOP BINS WHAT A STRIKE!")
+    elif shot in (4, 6) and dive != 4 and dive != 6:
+        print("Bottom bins. Easy as you like.")
+    
+    # Determine save or goal
+    if shot == dive:
+        print(f"SAVE!!! {opponent_name} saves the penalty!!!")
+    else:
+        print(f"Goal!!! {taker_name} scores!!!")
+        taker_score += 1
+    
+    return taker_score
+
+display_intro()
+
+while True:
+    # Friend's penalty
+    print(f"{friend} steps up to take the penalty...")
+    time.sleep(2)
+    friend_score
+    friend_score = penalty_shot(friend, name, friend_score)
+    
+    print(f"{friend} {friend_score}: {name} {score}")
+    time.sleep(1)
+    
+    # Your penalty
+    print(f"{name} steps up to take the penalty...")
+    time.sleep(2)
+    score
+    score = penalty_shot(name, friend, score)
+    
+    print(f"{friend} {friend_score}: {name} {score}")
+    
+    # Check win conditions
+    if friend_score >= 3 and score <= 1:
+        print(f"And we have a winner!! {friend} wins with {friend_score} to {score}")
+        break
+    elif score >= 3 and friend_score <= 1:
+        print(f"And we have a winner!! {name} wins with {score} to {friend_score}")
+        break
+    elif friend_score >= 4 and score <= 2:
+        print(f"And we have a winner!! {friend} wins with {friend_score} to {score}")
+        break
+    elif score >= 4 and friend_score <= 2:
+        print(f"And we have a winner!! {name} wins with {score} to {friend_score}")
+        break
+
+    if friend_score == 5 and score == 5:
+        print("Damn, you really are too good. GAME OVER- DRAW")
